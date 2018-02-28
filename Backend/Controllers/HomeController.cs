@@ -81,7 +81,7 @@ namespace DatatableCRUD.Controllers
                     if (Request.Files[0] != null) {
                           FriendsImages = System.Guid.NewGuid().ToString() + System.IO.Path.GetExtension(Request.Files[0].FileName);
                           savefile(Request.Files[0], FriendsImages);
-                          pageindex.FriendsImages = FriendsImages;
+                          pageindex.FriendsImages = "images/upload/"+FriendsImages;
                     } else {
                         FriendsImages = "";
                     }
@@ -91,7 +91,7 @@ namespace DatatableCRUD.Controllers
                     {
                         adimages = System.Guid.NewGuid().ToString() + System.IO.Path.GetExtension(Request.Files[1].FileName);
                         savefile(Request.Files[1], adimages);
-                        pageindex.AdImages = adimages;
+                        pageindex.AdImages = "images/upload/" + adimages;
                     } else {
                         adimages = "";
                     }

@@ -9,38 +9,78 @@
     if (Model != null && Model.Id > 0)
     {
         @Html.HiddenFor(a => a.Id)
+
+        <div class="form-group">
+            <label>朋友圈</label>
+            <div>
+                <input type="file" name="file" id="filefriend" class="makethispretty" />
+                <p><image src=@Model.FriendsImages height=160 width=300 /></p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>描述</label>
+            @Html.TextBoxFor(a => a.Description, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.Description)
+        </div>
+        <div class="form-group">
+            <label>需要分享次数</label>
+            @Html.TextAreaFor(a => a.SharesRequirements, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.SharesRequirements)
+        </div>
+
+        <div class="form-group">
+            <label>广告图片</label>
+            <div>
+                <input type="file" name="file" id="filead" class="makethispretty" />
+                <p><image src=@Model.AdImages height=160 width=300 /></p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>广告地址</label>
+            @Html.TextBoxFor(a => a.AdURL, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.AdURL)
+        </div>
+    }
+    else
+    {
+
+        <div class="form-group">
+            <label>朋友圈</label>
+            <div>
+                <input type="file" name="file" id="filefriend" class="makethispretty" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>描述</label>
+            @Html.TextBoxFor(a => a.Description, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.Description)
+        </div>
+        <div class="form-group">
+            <label>需要分享次数</label>
+            @Html.TextAreaFor(a => a.SharesRequirements, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.SharesRequirements)
+        </div>
+
+        <div class="form-group">
+            <label>广告图片</label>
+            <div>
+                <input type="file" name="file" id="filead" class="makethispretty" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>广告地址</label>
+            @Html.TextBoxFor(a => a.AdURL, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.AdURL)
+        </div>
     }
 
-    <div class="form-group">
-        <label>朋友圈</label>
-        <div>
-            <input type="file" name="file" id="filefriend" class="makethispretty" />
-        </div>
-    </div>
 
-    <div class="form-group">
-        <label>描述</label>
-        @Html.TextBoxFor(a => a.Description, new { @class = "form-control" })
-        @Html.ValidationMessageFor(a => a.Description)
-    </div>
-    <div class="form-group">
-        <label>需要分享次数</label>
-        @Html.TextAreaFor(a => a.SharesRequirements, new { @class = "form-control" })
-        @Html.ValidationMessageFor(a => a.SharesRequirements)
-    </div>
 
-    <div class="form-group">
-        <label>广告图片</label>
-        <div>
-            <input type="file" name="file" id="filead" class="makethispretty" />
-        </div>
-    </div>
 
-    <div class="form-group">
-        <label>广告地址</label>
-        @Html.TextBoxFor(a => a.AdURL, new { @class = "form-control" })
-        @Html.ValidationMessageFor(a => a.AdURL)
-    </div>
 
     <div>
         <input type="submit" class="btn btn-info" value="生成一级页面" />
