@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WechatModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ShareInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+    <Property Name="ShareURL" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+    <Property Name="Image" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+    <Property Name="AuthorID" Type="Int32" />
+    <Property Name="InputDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityContainer Name="WechatEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ShareInfo" EntityType="Self.ShareInfo" />
+  </EntityContainer>
+</Schema>

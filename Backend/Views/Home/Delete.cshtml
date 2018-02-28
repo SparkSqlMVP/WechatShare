@@ -1,0 +1,34 @@
+﻿@model WechatBackend.Models.ShareInfo
+
+@using (Html.BeginForm("delete","home", FormMethod.Post,new { id= "popupForm" }))
+{
+    @Html.HiddenFor(a=>a.Id)
+    <div class="form-group">
+        <label>标题</label>
+        <p>@Model.Title</p>
+    </div>
+
+    <div class="form-group">
+        <label>描述</label>
+        <p>@Model.Description</p>
+    </div>
+
+    <div class="form-group">
+        <label>分享图片</label>
+        <p><image src=@Model.Image  height=160 width=300 /></p>
+    </div>
+
+    <div class="form-group">
+        <label>分享地址</label>
+        <p>@Model.ShareURL</p>
+    </div>
+
+    <div class="form-group">
+        <label>设计内容人员ID</label>
+        <p>@Model.AuthorID</p>
+    </div>
+
+    <div>
+        <input type="submit" class="btn btn-danger" value="删除" />
+    </div>
+}

@@ -1,0 +1,12 @@
+C:\GitHub\Wechat\Frontend\bin\CSharpSDK.dll.config
+C:\GitHub\Wechat\Frontend\bin\CSharpSDK.dll
+C:\GitHub\Wechat\Frontend\bin\CSharpSDK.pdb
+C:\GitHub\Wechat\Frontend\bin\EntityFramework.dll
+C:\GitHub\Wechat\Frontend\bin\EntityFramework.SqlServer.dll
+C:\GitHub\Wechat\Frontend\bin\Newtonsoft.Json.dll
+C:\GitHub\Wechat\Frontend\bin\EntityFramework.xml
+C:\GitHub\Wechat\Frontend\bin\EntityFramework.SqlServer.xml
+C:\GitHub\Wechat\Frontend\bin\Newtonsoft.Json.xml
+C:\GitHub\Wechat\Frontend\obj\Debug\Frontend.csproj.CoreCompileInputs.cache
+C:\GitHub\Wechat\Frontend\obj\Debug\CSharpSDK.dll
+C:\GitHub\Wechat\Frontend\obj\Debug\CSharpSDK.pdb

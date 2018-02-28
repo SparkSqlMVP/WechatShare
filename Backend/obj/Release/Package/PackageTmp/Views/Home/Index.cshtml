@@ -1,0 +1,150 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>微信分享管理平台v1.0</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+    
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <style>
+        span.field-validation-error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("微信分享管理平台 v1.0", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("分享管理", "Index", "Home", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("分享统计", "Index", "Home", new { area = "" }, null)</li>
+                    <!--
+            <li>@Html.ActionLink("API", "Index", "Help", new { area = "HelpPage" }, null)</li>
+        -->
+                </ul>
+                
+            </div>
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav"></ul>
+            </div>
+        </div>
+    </div>
+    <div style="width:90%; margin:50px auto" class="tablecontainer">
+        <a class="popup btn btn-primary" href="/home/save/0" style="margin-bottom:20px; margin-top:20px;">添加分享内容</a>
+        <table id="myDatatable" class="display" cellspacing="0" >
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>ShareURL</th>
+                    <th>Image</th>
+                    <th>Description</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var oTable = $('#myDatatable').DataTable({
+                "ajax": {
+                    "url": '/home/GetShareinfos',
+                    "type": "get",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "Title", "title": "分享的标题","autoWidth": true },
+                    { "data": "Description", "title": "分享内容描述", "autoWidth": true },
+                    { "data": "Image", "title": "分享显示缩微图", "autoWidth": true },
+                    { "data": "ShareURL", "title": "一级页面地址", "autoWidth": true },
+                    {
+                        "data": "Id", "title": "分享地址", "width": "50px", "render": function (data) {
+                            return '<a class="popup"  href="/home/generatepage/' + data + '" ><button class="btn btn-success" type="submit">生成分享页面</button></a> ';
+                        }
+                    },
+                    {
+                        "data": "Id", "title": "编辑", "width": "50px", "render": function (data) {
+                            return '<a class="popup"  href="/home/save/' + data + '" ><button class="btn btn-info" type="submit">编辑</button></a> ';
+                        }
+                    },
+                    {
+                        "data": "Id", "title": "删除","width": "50px", "render": function (data) {
+                            return '<a class="popup" href="/home/delete/' + data + '"><button class="btn btn-danger" type="submit">删除</button></a>';
+                        }
+                    }
+                ]
+            })
+            $('.tablecontainer').on('click', 'a.popup', function (e) {
+                e.preventDefault();
+                OpenPopup($(this).attr('href'));
+            })
+            function OpenPopup(pageUrl) {
+
+                var $pageContent = $('<div/>');
+                $pageContent.load(pageUrl, function () {
+                    $('#popupForm', $pageContent).removeData('validator');
+                    $('#popupForm', $pageContent).removeData('unobtrusiveValidation');
+                    $.validator.unobtrusive.parse('form');
+                });
+                $dialog = $('<div class="popupWindow" style="overflow:auto"></div>')
+                    .html($pageContent)
+                    .dialog({
+                        draggable: false,
+                        autoOpen: false,
+                        resizable: false,
+                        model: true,
+                        title: '分享内容',
+                        height: 550,
+                        width: 600,
+                        close: function () {
+                            $dialog.dialog('destroy').remove();
+                        }
+                    })
+
+                $('.popupWindow').on('submit', '#popupForm', function (e) {
+                    var url = $('#popupForm')[0].action;
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: $('#popupForm').serialize(),
+                        success: function (data) {
+                            if (data.status) {
+                                $dialog.dialog('close');
+                                oTable.ajax.reload();
+                            }
+                        }
+                    })
+                    e.preventDefault();
+                })
+
+                $dialog.dialog('open');
+            }
+        })
+    </script>
+</body>
+</html>

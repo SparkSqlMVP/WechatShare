@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WechatModelStoreContainer" CdmEntityContainer="WechatEntities">
+    <EntitySetMapping Name="ShareInfoes">
+      <EntityTypeMapping TypeName="WechatModel.ShareInfo">
+        <MappingFragment StoreEntitySet="ShareInfo">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ShareURL" ColumnName="ShareURL" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+          <ScalarProperty Name="InputDate" ColumnName="InputDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pageinexinfoes">
+      <EntityTypeMapping TypeName="WechatModel.Pageinexinfo">
+        <MappingFragment StoreEntitySet="Pageinexinfo">
+          <ScalarProperty Name="shareinfoID" ColumnName="shareinfoID" />
+          <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+          <ScalarProperty Name="AdURL" ColumnName="AdURL" />
+          <ScalarProperty Name="InputDate" ColumnName="InputDate" />
+          <ScalarProperty Name="AdImages" ColumnName="AdImages" />
+          <ScalarProperty Name="SharesRequirements" ColumnName="SharesRequirements" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="FriendsImages" ColumnName="FriendsImages" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

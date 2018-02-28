@@ -1,0 +1,9 @@
+C:\GitHub\wechatShare\CSharpSDK\CSharpSDK\bin\CSharpSDK.dll.config
+C:\GitHub\wechatShare\CSharpSDK\CSharpSDK\bin\CSharpSDK.dll
+C:\GitHub\wechatShare\CSharpSDK\CSharpSDK\bin\CSharpSDK.pdb
+C:\GitHub\wechatShare\CSharpSDK\CSharpSDK\obj\Release\CSharpSDK.csproj.CoreCompileInputs.cache
+C:\GitHub\wechatShare\CSharpSDK\CSharpSDK\obj\Release\CSharpSDK.dll
+C:\GitHub\wechatShare\CSharpSDK\CSharpSDK\obj\Release\CSharpSDK.pdb
+C:\GitHub\wechatShare\CSharpSDK\CSharpSDK\bin\Newtonsoft.Json.dll
+C:\GitHub\wechatShare\CSharpSDK\CSharpSDK\bin\Newtonsoft.Json.xml
+C:\GitHub\wechatShare\CSharpSDK\CSharpSDK\obj\Release\CSharpSDK.csprojResolveAssemblyReference.cache
