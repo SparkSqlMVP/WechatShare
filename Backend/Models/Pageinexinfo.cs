@@ -23,5 +23,6 @@ namespace WechatBackend.Models
         public string AdURL { get; set; }
         public Nullable<int> AuthorID { get; set; }
         public Nullable<int> shareinfoID { get; set; }
+        public string friendimages { get; set; }
     }
 }

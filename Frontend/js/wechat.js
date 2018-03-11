@@ -79,76 +79,8 @@ var DB = {
     }
 }
 //通用请求
-function getData(method, url, parms, _callback, _failback) {
-    // console.log('TOKEN:' + DB.getS('TOKEN'));
-    //alert(DB.get(ACCESS_TOKEN));
-    $.ajax({
-        headers: {'Authorization': 'Bearer ' + DB.get(ACCESS_TOKEN) },
-        type: method, url: url, data: parms, dataType: "json",        
-        success: function (data) {
-            if (data.r == '1') {
-                _callback(data);
-            } else if (_failback) {
-                if (data.r == '401') {
-                    DB.removes(ACCESS_TOKEN);
-                    DB.removes(REFRESH_TOKEN);
-                    DB.removes(WXOPENID);
-                    window.location.href = '/index.html';
-                }
-                _failback(data);
-            }
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            //alert(XMLHttpRequest.status);
-            if (XMLHttpRequest.status == '401') {
-                $.ajax({
-                    type: "POST", url: "/api/auth/refreshtoken", data: { refreshToken: DB.get(REFRESH_TOKEN) }, dataType: "json",
-                    success: function (data) {
-                        if (data.r == '1') {
-                            DB.set(ACCESS_TOKEN, data.d.access_token);
-                            DB.set(REFRESH_TOKEN, data.d.refresh_token);
-                            DB.set(WXOPENID, data.d.openid);
-                            $.ajax({
-                                headers: { 'Authorization': 'Bearer ' + DB.get(ACCESS_TOKEN) },
-                                type: method, url: url, data: parms, dataType: "json",
-                                success: function (data) {
-                                    if (data.r == '1') {
-                                        _callback(data);
-                                    } else if (_failback) {
-                                        if (data.r == '401') {
-                                            DB.removes(ACCESS_TOKEN);
-                                            DB.removes(REFRESH_TOKEN);
-                                            DB.removes(WXOPENID);
-                                            //alert(3);
-                                            //window.location.href = 'index.html';
-                                        }
-                                        _failback(data);
-                                    }
-                                }, error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                    _failback && _failback(XMLHttpRequest);
-                                }
-                            });
-                        } else {
-                            DB.removes(ACCESS_TOKEN);
-                            DB.removes(REFRESH_TOKEN);
-                            DB.removes(WXOPENID);
-                            window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx95c9eb18973660f6&redirect_uri=' + window.location.href + '&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect';
-                        }
-                    },
-                    error: function (XMLHttpRequest) {
-                        DB.removes(ACCESS_TOKEN);
-                        DB.removes(REFRESH_TOKEN);
-                        DB.removes(WXOPENID);
-                        window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx95c9eb18973660f6&redirect_uri=' + window.location.href + '&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect';
-                    }
-                });
-            } else {
-                _failback && _failback(XMLHttpRequest);
-            }
-           
-        }
-    });
-}
+
+
 //微信API初始化
 function wxinit(appId, timestamp, nonceStr, signature, _callback) {
     if (typeof wx == 'undefined') {
@@ -178,31 +110,42 @@ function wxinit(appId, timestamp, nonceStr, signature, _callback) {
 
 //微信分享
 function wxShareInit(title, link, imgUrl, desc) {
-
     // 朋友圈
     var _suc1 = function () {
-
         var currentUser = localStorage.getItem("curUser");
         if (null == currentUser || "" == currentUser) {
             currentUser = parseInt(Date.now() + Math.random() * 100000000000);
             localStorage.setItem("curUser", currentUser);
-            localStorage.setItem(currentUser, 1);
-        } else {
-            localStorage.setItem(currentUser, parseInt(localStorage.getItem(currentUser)) + 1);
+            //localStorage.setItem(currentUser, 1);
         }
-       
-       
-        if (parseInt(localStorage.getItem(currentUser)) >= 3) {
-            window.location.href = "/html/qrcode.html";
+        //else {
+        //    localStorage.setItem(currentUser, parseInt(localStorage.getItem(currentUser)) + 1);
+        //}
+        var shares, sharerequestnumber, qrcode;
+        var url = window.location.href;
+        url = url.indexOf("?") > 0 ? url.substring(0, url.indexOf("?")) : url;
+
+         $.ajax({  
+                async: false, //使用同步的Ajax请求  
+                type: "post",  
+                url: "/services/Shareloginfo.ashx",  
+                data: {"UserID": currentUser, "ShareUrl": url },  
+                success: function(msg){  
+                    shares = msg.d.sharenums;
+                    sharerequestnumber = msg.d.sharerequest;
+                    qrcode = msg.d.shareimages;
+                }  
+            });  
+
+
+    
+       if (shares >= sharerequestnumber) {
+           window.location.href = "/html/qrcode.html?images=" + qrcode+"";
         }
         else {
-            alert('你分享成功了' + localStorage.getItem(currentUser) + '次，请再分享' + (3 - parseInt(localStorage.getItem(currentUser)))+'次群或者朋友圈!');
+            alert('你分享成功了' + shares + '次，请再分享' + (sharerequestnumber - shares)+'次群或者朋友圈!');
         }
-        
-        //getData('post', '/api/wechatshare/save', { "OpenId": DB.get(WXOPENID), "Postid": getQueryString("id"), "ShareAddress": "微信朋友圈", "Title": title, "Link": link, "Desc": desc, "ImgUrl": imgUrl }, function (data) {
-        //    document.location.reload();
-        //}, function (data) {
-        //    })
+       
     };
     //朋友
     var _suc2 = function () {
@@ -210,16 +153,29 @@ function wxShareInit(title, link, imgUrl, desc) {
         if (null == currentUser || "" == currentUser) {
             currentUser = parseInt(Date.now() + Math.random() * 100000000000);
             localStorage.setItem("curUser", currentUser);
-            localStorage.setItem(currentUser, 1);
-        } else {
-            localStorage.setItem(currentUser, parseInt(localStorage.getItem(currentUser)) + 1);
+            //localStorage.setItem(currentUser, 1);
         }
 
-        if (parseInt(localStorage.getItem(currentUser)) >= 3) {
-            window.location.href = "/html/qrcode.html";
+        var shares, sharerequestnumber, qrcode;
+        var url = window.location.href;
+        url = url.indexOf("?") > 0 ? url.substring(0, url.indexOf("?")) : url;
+        $.ajax({  
+                async: false, //使用同步的Ajax请求  
+                type: "post",  
+                url: "/services/Shareloginfo.ashx",  
+                data: {"UserID": currentUser, "ShareUrl": url },  
+                success: function(msg){  
+                    shares = msg.d.sharenums;
+                    sharerequestnumber = msg.d.sharerequest;
+                    qrcode = msg.d.shareimages;
+                }  
+            });  
+
+        if (shares >= sharerequestnumber) {
+            window.location.href = "/html/qrcode.html?images=" + qrcode + "";
         }
         else {
-            alert('你分享成功了' + localStorage.getItem(currentUser) + '次，请再分享' + (3 - parseInt(localStorage.getItem(currentUser))) + '次群或者朋友圈!');
+            alert('你分享成功了' + shares + '次，请再分享' + (sharerequestnumber - shares) + '次群或者朋友圈!');
         }
 
     };
@@ -229,16 +185,32 @@ function wxShareInit(title, link, imgUrl, desc) {
         if (null == currentUser || "" == currentUser) {
             currentUser = parseInt(Date.now() + Math.random() * 100000000000);
             localStorage.setItem("curUser", currentUser);
-            localStorage.setItem(currentUser, 1);
-        } else {
-            localStorage.setItem(currentUser, parseInt(localStorage.getItem(currentUser)) + 1);
+            //localStorage.setItem(currentUser, 1);
         }
+        //else {
+        //    localStorage.setItem(currentUser, parseInt(localStorage.getItem(currentUser)) + 1);
+        //}
+         var shares, sharerequestnumber, qrcode;
+        var url = window.location.href;
+        url = url.indexOf("?") > 0 ? url.substring(0, url.indexOf("?")) : url;
 
-        if (parseInt(localStorage.getItem(currentUser)) >= 3) {
-            window.location.href = "/html/qrcode.html";
+        $.ajax({  
+                async: false, //使用同步的Ajax请求  
+                type: "post",  
+                url: "/services/Shareloginfo.ashx",  
+                data: {"UserID": currentUser, "ShareUrl": url },  
+                success: function(msg){  
+                    shares = msg.d.sharenums;
+                    sharerequestnumber = msg.d.sharerequest;
+                    qrcode = msg.d.shareimages;
+                }  
+            });  
+
+        if (shares >= sharerequestnumber) {
+            window.location.href = "/html/qrcode.html?images=" + qrcode + "";
         }
         else {
-            alert('你分享成功了' + localStorage.getItem(currentUser) + '次，请再分享' + (3 - parseInt(localStorage.getItem(currentUser))) + '次群或者朋友圈!');
+            alert('你分享成功了' + shares + '次，请再分享' + (sharerequestnumber - shares) + '次群或者朋友圈!');
         }
     };
     // 微博
@@ -247,17 +219,35 @@ function wxShareInit(title, link, imgUrl, desc) {
         if (null == currentUser || "" == currentUser) {
             currentUser = parseInt(Date.now() + Math.random() * 100000000000);
             localStorage.setItem("curUser", currentUser);
-            localStorage.setItem(currentUser, 1);
-        } else {
-            localStorage.setItem(currentUser, parseInt(localStorage.getItem(currentUser)) + 1);
+            //localStorage.setItem(currentUser, 1);
         }
+        //else {
+        //    localStorage.setItem(currentUser, parseInt(localStorage.getItem(currentUser)) + 1);
+        //}
 
-        if (parseInt(localStorage.getItem(currentUser)) >= 3) {
-            window.location.href = "/html/qrcode.html";
+            var shares, sharerequestnumber, qrcode;
+        var url = window.location.href;
+        url = url.indexOf("?") > 0 ? url.substring(0, url.indexOf("?")) : url;
+
+        $.ajax({  
+                async: false, //使用同步的Ajax请求  
+                type: "post",  
+                url: "/services/Shareloginfo.ashx",  
+                data: {"UserID": currentUser, "ShareUrl": url },  
+                success: function(msg){  
+                    shares = msg.d.sharenums;
+                    sharerequestnumber = msg.d.sharerequest;
+                    qrcode = msg.d.shareimages;
+                }  
+            });  
+
+        if (shares >= sharerequestnumber) {
+            window.location.href = "/html/qrcode.html?images=" + qrcode + "";
         }
         else {
-            alert('你分享成功了' + localStorage.getItem(currentUser) + '次，请再分享' + (3 - parseInt(localStorage.getItem(currentUser))) + '次群或者朋友圈!');
+            alert('你分享成功了' + shares + '次，请再分享' + (sharerequestnumber - shares) + '次群或者朋友圈!');
         }
+
     };
 
 
@@ -319,10 +309,16 @@ var l = getQueryString("l");
 function initall() {
     var url = window.location.href;
     var shareurl = "http://www.bbpdt.cn/index.aspx";
-    getData('get', "/Services/ShareAPI.ashx", { "url": url, "shareurl": shareurl }, function (data) {
-        wxinit(data.d.config.AppId, data.d.config.Timestamp, data.d.config.NonceStr, data.d.config.Signature, function () {
-            wxShareInit(data.d.share.title, data.d.share.url, data.d.share.imags, data.d.share.describtion);
-            });
-    }, function (data) { });
+    $.ajax({  
+        async: true, //使用同步的Ajax请求  
+        type: "get",  
+        url: "/services/ShareAPI.ashx",  
+        data: {"url": url, "shareurl": shareurl },  
+        success: function(msg){  
+            wxinit(msg.d.config.AppId, msg.d.config.Timestamp, msg.d.config.NonceStr, msg.d.config.Signature, function () {
+                wxShareInit(msg.d.share.title, msg.d.share.url, msg.d.share.imags, msg.d.share.describtion);
+                });
+        }  
+    });  
 }
 initall();

@@ -27,5 +27,6 @@ namespace WechatBackend.Models
     
         public virtual DbSet<ShareInfo> ShareInfoes { get; set; }
         public virtual DbSet<Pageinexinfo> Pageinexinfoes { get; set; }
+        public virtual DbSet<ShareLog> ShareLogs { get; set; }
     }
 }

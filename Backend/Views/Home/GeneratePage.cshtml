@@ -15,6 +15,7 @@
             <div>
                 <input type="file" name="file" id="filefriend" class="makethispretty" />
                 <p><image src=@Model.FriendsImages height=160 width=300 /></p>
+                @Html.ValidationMessageFor(a => a.FriendsImages)
             </div>
         </div>
 
@@ -34,6 +35,7 @@
             <div>
                 <input type="file" name="file" id="filead" class="makethispretty" />
                 <p><image src=@Model.AdImages height=160 width=300 /></p>
+                @Html.ValidationMessageFor(a => a.AdImages)
             </div>
         </div>
 
@@ -42,14 +44,26 @@
             @Html.TextBoxFor(a => a.AdURL, new { @class = "form-control" })
             @Html.ValidationMessageFor(a => a.AdURL)
         </div>
+
+
+        <div class="form-group">
+            <label>二维码群图片</label>
+            <div>
+                <input type="file" name="file" id="filefriendsimages" class="makethispretty" />
+                <p><image src=@Model.friendimages height=160 width=300 /></p>
+                @Html.ValidationMessageFor(a => a.friendimages)
+            </div>
+        </div>
+
     }
     else
     {
 
         <div class="form-group">
-            <label>朋友圈</label>
+            <label>群介绍图片</label>
             <div>
                 <input type="file" name="file" id="filefriend" class="makethispretty" />
+                @Html.ValidationMessageFor(a => a.FriendsImages)
             </div>
         </div>
 
@@ -68,6 +82,7 @@
             <label>广告图片</label>
             <div>
                 <input type="file" name="file" id="filead" class="makethispretty" />
+                @Html.ValidationMessageFor(a => a.AdImages)
             </div>
         </div>
 
@@ -76,9 +91,16 @@
             @Html.TextBoxFor(a => a.AdURL, new { @class = "form-control" })
             @Html.ValidationMessageFor(a => a.AdURL)
         </div>
+
+        <div class="form-group">
+            <label>二维码群图片</label>
+            <div>
+                <input type="file" name="file" id="filefriendsimages" class="makethispretty" />
+                @Html.ValidationMessageFor(a => a.friendimages)
+            </div>
+        </div>
+
     }
-
-
 
 
 

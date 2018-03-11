@@ -11,3 +11,17 @@ C:\GitHub\Wechat\Frontend\bin\EntityFramework.SqlServer.dll
 C:\GitHub\Wechat\Frontend\bin\EntityFramework.xml
 C:\GitHub\Wechat\Frontend\bin\EntityFramework.SqlServer.xml
 C:\GitHub\Wechat\Frontend\obj\Release\Frontend.csprojResolveAssemblyReference.cache
+C:\GitHub\WechatShare\Frontend\bin\CSharpSDK.dll.config
+C:\GitHub\WechatShare\Frontend\bin\CSharpSDK.dll
+C:\GitHub\WechatShare\Frontend\bin\CSharpSDK.pdb
+C:\GitHub\WechatShare\Frontend\bin\EntityFramework.dll
+C:\GitHub\WechatShare\Frontend\bin\EntityFramework.SqlServer.dll
+C:\GitHub\WechatShare\Frontend\bin\Newtonsoft.Json.dll
+C:\GitHub\WechatShare\Frontend\bin\EntityFramework.xml
+C:\GitHub\WechatShare\Frontend\bin\EntityFramework.SqlServer.xml
+C:\GitHub\WechatShare\Frontend\bin\Newtonsoft.Json.xml
+C:\GitHub\WechatShare\Frontend\obj\Release\Frontend.csprojResolveAssemblyReference.cache
+C:\GitHub\WechatShare\Frontend\obj\Release\Frontend.csproj.CoreCompileInputs.cache
+C:\GitHub\WechatShare\Frontend\obj\Release\CSharpSDK.dll
+C:\GitHub\WechatShare\Frontend\obj\Release\CSharpSDK.pdb
+C:\GitHub\WechatShare\Frontend\bin\DN.Framework.Utility.dll

@@ -28,7 +28,7 @@ namespace CSharpSDK.Services
             var qianming = HttpUtility.UrlDecode(url, System.Text.Encoding.GetEncoding(65001));
             shareinfo share = new shareinfo();
 
-            int id = int.Parse(GetNumber(url.Substring(url.LastIndexOf('/') + 1)).ToString());
+            int id = int.Parse(weitang.StringExtensions.GetNumber(url.Substring(url.LastIndexOf('/') + 1)).ToString());
             WechatEntities dc = new WechatEntities();
             var v = dc.ShareInfo.Where(a => a.Id == id).FirstOrDefault();
             share.url = v.ShareURL;
@@ -43,21 +43,7 @@ namespace CSharpSDK.Services
                 m = "数据获取成功" }));
         }
 
-        public static decimal GetNumber(string str)
-        {
-            decimal result = 0;
-            if (str != null && str != string.Empty)
-            {
-                // 正则表达式剔除非数字字符（不包含小数点.） 
-                str = Regex.Replace(str, @"[^\d.\d]", "");
-                // 如果是数字，则转换为decimal类型 
-                if (Regex.IsMatch(str, @"^[+-]?\d*[.]?\d*$"))
-                {
-                    result = decimal.Parse(str);
-                }
-            }
-            return result;
-        }
+   
 
         public class shareinfo
         {

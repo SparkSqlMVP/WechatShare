@@ -81,14 +81,24 @@
     <script>
         function quxian() {
             var peoples = random(100, 500);
-
             var currentUser = localStorage.getItem("curUser");
             if (null == currentUser || "" == currentUser) {
                 var msg = '活动提示：完成分享任务，即可进群（请分享到一个微信群）\n当前群人数' + peoples + '人';
                 alert(msg);
                 return;
             }
-            if (parseInt(localStorage.getItem(currentUser)) >= 3) {
+
+            var shares, sharerequestnumber
+            var url = window.location.href;
+            url = url.indexOf("?") > 0 ? url.substring(0, url.indexOf("?")) : url;
+            getSynchronizeData('get', '/Services/Shareloginfo.ashx', { "UserID": currentUser, "ShareUrl": url },
+                function (data) {
+                    shares = data.d.sharenums;
+                    sharerequestnumber = data.d.sharerequest;
+                }
+            )
+
+            if (shares >= sharerequestnumber) {
                 window.location.href = "/html/qrcode.html";
             }
             else {

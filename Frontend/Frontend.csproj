@@ -46,6 +46,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DN.Framework.Utility, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Models\DN.Framework.Utility.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
@@ -53,8 +57,9 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Runtime.Serialization" />
@@ -78,8 +83,11 @@
     <Content Include="favicon.ico" />
     <Content Include="html\qrcode.html" />
     <Content Include="html\smths.html" />
+    <Content Include="images\upload\a.jpg" />
     <Content Include="js\jquery-1.9.1.js" />
     <Content Include="js\jquery-ui.js" />
+    <Content Include="js\jquery.min.js" />
+    <Content Include="Models\DN.Framework.Utility.dll" />
     <Content Include="Models\MyWechat.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MyWechat.Context.cs</LastGenOutput>
@@ -103,6 +111,8 @@
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="pages\Index1.aspx" />
     <Content Include="Services\ShareAPI.ashx" />
+    <Content Include="Services\Shareloginfo.ashx" />
+    <Content Include="Services\ShareStatics.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -122,6 +132,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="helper\IpTaoBaoHelper.cs" />
+    <Compile Include="helper\SQLServerHelper.cs" />
     <Compile Include="index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -144,7 +156,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MyWechat.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Pageinexinfo.cs">
+      <DependentUpon>MyWechat.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ShareInfo.cs">
+      <DependentUpon>MyWechat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ShareLog.cs">
       <DependentUpon>MyWechat.tt</DependentUpon>
     </Compile>
     <Compile Include="pages\Index1.aspx.cs">
@@ -159,6 +177,12 @@
       <DependentUpon>ShareAPI.ashx</DependentUpon>
     </Compile>
     <Compile Include="helper\StringExtensions.cs" />
+    <Compile Include="Services\Shareloginfo.ashx.cs">
+      <DependentUpon>Shareloginfo.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\ShareStatics.ashx.cs">
+      <DependentUpon>ShareStatics.ashx</DependentUpon>
+    </Compile>
     <Compile Include="WechatLib\Config.cs" />
     <Compile Include="WechatLib\Data.cs" />
     <Compile Include="WechatLib\Exception.cs" />

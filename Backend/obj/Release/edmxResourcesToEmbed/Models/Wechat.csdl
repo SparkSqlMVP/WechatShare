@@ -15,6 +15,7 @@
   <EntityContainer Name="WechatEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="ShareInfoes" EntityType="Self.ShareInfo" />
     <EntitySet Name="Pageinexinfoes" EntityType="WechatModel.Pageinexinfo" />
+    <EntitySet Name="ShareLogs" EntityType="WechatModel.ShareLog" />
   </EntityContainer>
   <EntityType Name="Pageinexinfo">
     <Key>
@@ -29,5 +30,28 @@
     <Property Name="AdURL" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
     <Property Name="AuthorID" Type="Int32" />
     <Property Name="shareinfoID" Type="Int32" />
+    <Property Name="friendimages" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="ShareLog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userID" Type="String" MaxLength="60" Unicode="true" FixedLength="false" />
+    <Property Name="shareUrl" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+    <Property Name="shareinfoID" Type="Int32" />
+    <Property Name="InputDate" Type="DateTime" Precision="3" />
+    <Property Name="BrowseType" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ClientIp" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="IsMobile" Type="Int32" />
+    <Property Name="OsName" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="BrowseName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="BrowseVersion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Country" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="Area" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="Region" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="County" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="Isp" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

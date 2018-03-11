@@ -85,6 +85,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -174,18 +178,88 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Wechat.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="images\car_ad.jpg" />
     <Content Include="Models\Wechat.edmx.diagram">
       <DependentUpon>Wechat.edmx</DependentUpon>
     </Content>
+    <Content Include="Scripts\highcharts.js" />
+    <Content Include="Scripts\modules\accessibility.js" />
+    <Content Include="Scripts\modules\accessibility.src.js" />
+    <Content Include="Scripts\modules\annotations.js" />
+    <Content Include="Scripts\modules\annotations.src.js" />
+    <Content Include="Scripts\modules\boost-canvas.js" />
+    <Content Include="Scripts\modules\boost-canvas.src.js" />
+    <Content Include="Scripts\modules\boost.js" />
+    <Content Include="Scripts\modules\boost.src.js" />
+    <Content Include="Scripts\modules\broken-axis.js" />
+    <Content Include="Scripts\modules\broken-axis.src.js" />
+    <Content Include="Scripts\modules\bullet.js" />
+    <Content Include="Scripts\modules\bullet.src.js" />
+    <Content Include="Scripts\modules\data.js" />
+    <Content Include="Scripts\modules\data.src.js" />
+    <Content Include="Scripts\modules\drag-panes.js" />
+    <Content Include="Scripts\modules\drag-panes.src.js" />
+    <Content Include="Scripts\modules\drilldown.js" />
+    <Content Include="Scripts\modules\drilldown.src.js" />
+    <Content Include="Scripts\modules\export-data.js" />
+    <Content Include="Scripts\modules\export-data.src.js" />
+    <Content Include="Scripts\modules\exporting.js" />
+    <Content Include="Scripts\modules\exporting.src.js" />
+    <Content Include="Scripts\modules\funnel.js" />
+    <Content Include="Scripts\modules\funnel.src.js" />
+    <Content Include="Scripts\modules\gantt.js" />
+    <Content Include="Scripts\modules\gantt.src.js" />
+    <Content Include="Scripts\modules\grid-axis.js" />
+    <Content Include="Scripts\modules\grid-axis.src.js" />
+    <Content Include="Scripts\modules\heatmap.js" />
+    <Content Include="Scripts\modules\heatmap.src.js" />
+    <Content Include="Scripts\modules\histogram-bellcurve.js" />
+    <Content Include="Scripts\modules\histogram-bellcurve.src.js" />
+    <Content Include="Scripts\modules\item-series.js" />
+    <Content Include="Scripts\modules\item-series.src.js" />
+    <Content Include="Scripts\modules\no-data-to-display.js" />
+    <Content Include="Scripts\modules\no-data-to-display.src.js" />
+    <Content Include="Scripts\modules\offline-exporting.js" />
+    <Content Include="Scripts\modules\offline-exporting.src.js" />
+    <Content Include="Scripts\modules\oldie.js" />
+    <Content Include="Scripts\modules\oldie.src.js" />
+    <Content Include="Scripts\modules\overlapping-datalabels.js" />
+    <Content Include="Scripts\modules\overlapping-datalabels.src.js" />
+    <Content Include="Scripts\modules\parallel-coordinates.js" />
+    <Content Include="Scripts\modules\parallel-coordinates.src.js" />
+    <Content Include="Scripts\modules\pareto.js" />
+    <Content Include="Scripts\modules\pareto.src.js" />
+    <Content Include="Scripts\modules\sankey.js" />
+    <Content Include="Scripts\modules\sankey.src.js" />
+    <Content Include="Scripts\modules\series-label.js" />
+    <Content Include="Scripts\modules\series-label.src.js" />
+    <Content Include="Scripts\modules\solid-gauge.js" />
+    <Content Include="Scripts\modules\solid-gauge.src.js" />
+    <Content Include="Scripts\modules\static-scale.js" />
+    <Content Include="Scripts\modules\static-scale.src.js" />
+    <Content Include="Scripts\modules\stock.js" />
+    <Content Include="Scripts\modules\stock.src.js" />
+    <Content Include="Scripts\modules\streamgraph.js" />
+    <Content Include="Scripts\modules\streamgraph.src.js" />
+    <Content Include="Scripts\modules\sunburst.src.js" />
+    <Content Include="Scripts\modules\tilemap.js" />
+    <Content Include="Scripts\modules\tilemap.src.js" />
+    <Content Include="Scripts\modules\treemap.js" />
+    <Content Include="Scripts\modules\treemap.src.js" />
+    <Content Include="Scripts\modules\variable-pie.js" />
+    <Content Include="Scripts\modules\variable-pie.src.js" />
+    <Content Include="Scripts\modules\variwide.js" />
+    <Content Include="Scripts\modules\variwide.src.js" />
+    <Content Include="Scripts\modules\vector.js" />
+    <Content Include="Scripts\modules\vector.src.js" />
+    <Content Include="Scripts\modules\windbarb.js" />
+    <Content Include="Scripts\modules\windbarb.src.js" />
+    <Content Include="Scripts\modules\wordcloud.js" />
+    <Content Include="Scripts\modules\wordcloud.src.js" />
+    <Content Include="Scripts\modules\xrange.js" />
+    <Content Include="Scripts\modules\xrange.src.js" />
     <Content Include="template\Index.tl" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
-    <Content Include="images\sort_asc.png" />
-    <Content Include="images\sort_both.png" />
-    <Content Include="images\sort_desc.png" />
-    <Content Include="images\upload\a.jpg" />
-    <Content Include="images\upload\b.jpg" />
     <Content Include="Models\Wechat.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Wechat.edmx</DependentUpon>
@@ -213,15 +287,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AnalyzerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\ApiResponse.cs" />
+    <Compile Include="Helper\SQLServerHelper.cs" />
     <Compile Include="Models\Extended\Employee.cs" />
     <Compile Include="Models\Pageinexinfo.cs">
       <DependentUpon>Wechat.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ShareInfo.cs">
+      <DependentUpon>Wechat.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ShareLog.cs">
       <DependentUpon>Wechat.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Wechat.Context.cs">
@@ -240,8 +320,14 @@
       <DependentUpon>Wechat.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\LineChat.ashx.cs">
+      <DependentUpon>LineChat.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Services\UploadImages.ashx.cs">
       <DependentUpon>UploadImages.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\Urlpie.ashx.cs">
+      <DependentUpon>Urlpie.ashx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -257,6 +343,46 @@
     <Content Include="Views\Home\Delete.cshtml" />
     <Content Include="Services\UploadImages.ashx" />
     <Content Include="Views\Home\GeneratePage.cshtml" />
+    <Content Include="Views\Analyzer\Index.cshtml" />
+    <Content Include="Scripts\modules\accessibility.js.map" />
+    <Content Include="Scripts\modules\annotations.js.map" />
+    <Content Include="Scripts\modules\boost-canvas.js.map" />
+    <Content Include="Scripts\modules\boost.js.map" />
+    <Content Include="Scripts\modules\broken-axis.js.map" />
+    <Content Include="Scripts\modules\bullet.js.map" />
+    <Content Include="Scripts\modules\data.js.map" />
+    <Content Include="Scripts\modules\drag-panes.js.map" />
+    <Content Include="Scripts\modules\drilldown.js.map" />
+    <Content Include="Scripts\modules\export-data.js.map" />
+    <Content Include="Scripts\modules\exporting.js.map" />
+    <Content Include="Scripts\modules\funnel.js.map" />
+    <Content Include="Scripts\modules\gantt.js.map" />
+    <Content Include="Scripts\modules\grid-axis.js.map" />
+    <Content Include="Scripts\modules\heatmap.js.map" />
+    <Content Include="Scripts\modules\histogram-bellcurve.js.map" />
+    <Content Include="Scripts\modules\item-series.js.map" />
+    <Content Include="Scripts\modules\no-data-to-display.js.map" />
+    <Content Include="Scripts\modules\offline-exporting.js.map" />
+    <Content Include="Scripts\modules\oldie.js.map" />
+    <Content Include="Scripts\modules\overlapping-datalabels.js.map" />
+    <Content Include="Scripts\modules\parallel-coordinates.js.map" />
+    <Content Include="Scripts\modules\pareto.js.map" />
+    <Content Include="Scripts\modules\sankey.js.map" />
+    <Content Include="Scripts\modules\series-label.js.map" />
+    <Content Include="Scripts\modules\solid-gauge.js.map" />
+    <Content Include="Scripts\modules\static-scale.js.map" />
+    <Content Include="Scripts\modules\stock.js.map" />
+    <Content Include="Scripts\modules\streamgraph.js.map" />
+    <Content Include="Scripts\modules\tilemap.js.map" />
+    <Content Include="Scripts\modules\treemap.js.map" />
+    <Content Include="Scripts\modules\variable-pie.js.map" />
+    <Content Include="Scripts\modules\variwide.js.map" />
+    <Content Include="Scripts\modules\vector.js.map" />
+    <Content Include="Scripts\modules\windbarb.js.map" />
+    <Content Include="Scripts\modules\wordcloud.js.map" />
+    <Content Include="Scripts\modules\xrange.js.map" />
+    <Content Include="Services\Urlpie.ashx" />
+    <Content Include="Services\LineChat.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -269,6 +395,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="images\upload\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

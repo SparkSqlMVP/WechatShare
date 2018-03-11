@@ -4,7 +4,22 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="WechatModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="WechatModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Pageinexinfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FriendsImages" Type="nvarchar" MaxLength="60" />
+          <Property Name="Description" Type="nvarchar" MaxLength="120" />
+          <Property Name="SharesRequirements" Type="int" />
+          <Property Name="AdImages" Type="nvarchar" MaxLength="60" />
+          <Property Name="AdURL" Type="nvarchar" MaxLength="60" />
+          <Property Name="AuthorID" Type="int" />
+          <Property Name="shareinfoID" Type="int" />
+          <Property Name="friendimages" Type="varchar" MaxLength="60" />
+          <Property Name="InputDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="ShareInfo">
           <Key>
             <PropertyRef Name="Id" />
@@ -17,11 +32,34 @@
           <Property Name="AuthorID" Type="int" />
           <Property Name="InputDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="ShareLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userID" Type="nvarchar" MaxLength="60" />
+          <Property Name="shareUrl" Type="nvarchar" MaxLength="120" />
+          <Property Name="shareinfoID" Type="int" />
+          <Property Name="BrowseType" Type="varchar" MaxLength="200" />
+          <Property Name="ClientIp" Type="varchar" MaxLength="120" />
+          <Property Name="IsMobile" Type="int" />
+          <Property Name="OsName" Type="varchar" MaxLength="120" />
+          <Property Name="BrowseName" Type="varchar" MaxLength="200" />
+          <Property Name="BrowseVersion" Type="varchar" MaxLength="200" />
+          <Property Name="Country" Type="varchar" MaxLength="120" />
+          <Property Name="Area" Type="varchar" MaxLength="120" />
+          <Property Name="City" Type="varchar" MaxLength="120" />
+          <Property Name="Region" Type="varchar" MaxLength="120" />
+          <Property Name="County" Type="varchar" MaxLength="120" />
+          <Property Name="Isp" Type="varchar" MaxLength="120" />
+          <Property Name="InputDate" Type="datetime" />
+        </EntityType>
         <EntityContainer Name="WechatModelStoreContainer">
+          <EntitySet Name="Pageinexinfo" EntityType="Self.Pageinexinfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShareInfo" EntityType="Self.ShareInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShareLog" EntityType="Self.ShareLog" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WechatModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -39,7 +77,46 @@
         </EntityType>
         <EntityContainer Name="WechatEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ShareInfo" EntityType="Self.ShareInfo" />
+          <EntitySet Name="Pageinexinfo" EntityType="WechatModel.Pageinexinfo" />
+          <EntitySet Name="ShareLogs" EntityType="WechatModel.ShareLog" />
         </EntityContainer>
+        <EntityType Name="Pageinexinfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FriendsImages" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+          <Property Name="SharesRequirements" Type="Int32" />
+          <Property Name="AdImages" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="AdURL" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="AuthorID" Type="Int32" />
+          <Property Name="shareinfoID" Type="Int32" />
+          <Property Name="InputDate" Type="DateTime" Precision="3" />
+          <Property Name="friendimages" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ShareLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userID" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="shareUrl" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+          <Property Name="shareinfoID" Type="Int32" />
+          <Property Name="BrowseType" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ClientIp" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="IsMobile" Type="Int32" />
+          <Property Name="OsName" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="BrowseName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="BrowseVersion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="Area" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="Region" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="County" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="Isp" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="InputDate" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -59,6 +136,45 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Pageinexinfo">
+            <EntityTypeMapping TypeName="WechatModel.Pageinexinfo">
+              <MappingFragment StoreEntitySet="Pageinexinfo">
+                <ScalarProperty Name="friendimages" ColumnName="friendimages" />
+                <ScalarProperty Name="InputDate" ColumnName="InputDate" />
+                <ScalarProperty Name="shareinfoID" ColumnName="shareinfoID" />
+                <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+                <ScalarProperty Name="AdURL" ColumnName="AdURL" />
+                <ScalarProperty Name="AdImages" ColumnName="AdImages" />
+                <ScalarProperty Name="SharesRequirements" ColumnName="SharesRequirements" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="FriendsImages" ColumnName="FriendsImages" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShareLogs">
+            <EntityTypeMapping TypeName="WechatModel.ShareLog">
+              <MappingFragment StoreEntitySet="ShareLog">
+                <ScalarProperty Name="InputDate" ColumnName="InputDate" />
+                <ScalarProperty Name="Isp" ColumnName="Isp" />
+                <ScalarProperty Name="County" ColumnName="County" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="BrowseVersion" ColumnName="BrowseVersion" />
+                <ScalarProperty Name="BrowseName" ColumnName="BrowseName" />
+                <ScalarProperty Name="OsName" ColumnName="OsName" />
+                <ScalarProperty Name="IsMobile" ColumnName="IsMobile" />
+                <ScalarProperty Name="ClientIp" ColumnName="ClientIp" />
+                <ScalarProperty Name="BrowseType" ColumnName="BrowseType" />
+                <ScalarProperty Name="shareinfoID" ColumnName="shareinfoID" />
+                <ScalarProperty Name="shareUrl" ColumnName="shareUrl" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -73,7 +189,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

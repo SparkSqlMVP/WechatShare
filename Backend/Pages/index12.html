@@ -1,4 +1,4 @@
-
+﻿
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -30,8 +30,10 @@
 .bot ul{color:#b5b4b9;display: inline;float: left;margin-left:10px;margin-right:30px;}
 .bb a{ padding:10px 0;height:60px;font-size:40px}
     </style>
+
 </head>
-<body>
+
+<body >
     <form id="form1" runat="server">
 
         <div id="sharediv" style="visibility:hidden">
@@ -44,16 +46,16 @@
         
    
         <div class="top">
-		<img src='http://www.bbpdt.cn/images/upload/77df5de3-1e16-4cc4-babf-9fa3addf429c.jpg'  style='height:620px' />
+		<img src='http://www.bbpdt.cn/images/upload/be9e40f8-a416-4aaa-93da-2fdffdd43019.png'  style='height:620px' />
 		<!-- <img src="http://www.bbpdt.cn/images/upload/b.jpg"  style="height:620px" /> -->
 		<script>
             if (typeof remote_ip_info != "undefined") {
                 var myDate = new Date();
                 var hours = myDate.getHours() + 1;
-                document.write("<h2>您的" + remote_ip_info["city"] + "朋友邀你加入群聊,加入群可以分享2" + "</h2>");
+                document.write("<h2>您的" + remote_ip_info["city"] + "朋友邀你加入群聊,饿" + "</h2>");
 
             } else {
-                document.write("<h2>加入群可以分享2</h2>");
+                document.write("<h2>饿</h2>");
             }
             function random(min, max) {
                 return Math.floor(min + Math.random() * (max - min));
@@ -68,8 +70,8 @@
 	</div>
 
         <div>
-	        <a href="www.baidu.com">
-				<img src='http://www.bbpdt.cn/images/upload/b98cd01b-b030-4630-9b8e-aefdb445c173.jpg'   style='width:100%;'  />
+	        <a href="http://www.baidu.com">
+				<img src='http://www.bbpdt.cn/images/upload/98c4ee2b-557b-4bf3-9315-325efd16d04d.png'   style='width:100%;'  />
 				<!--  <img src="http://www.bbpdt.cn/images/upload/car_ad.jpg" style="width: 100%;" /> -->
              </a>
         </div>
@@ -82,20 +84,40 @@
             var peoples = random(100, 500);
 
             var currentUser = localStorage.getItem("curUser");
+
             if (null == currentUser || "" == currentUser) {
                 var msg = '活动提示：完成分享任务，即可进群（请分享到一个微信群）\n当前群人数' + peoples + '人';
+		currentUser = parseInt(Date.now() + Math.random() * 100000000000);
+            	localStorage.setItem("curUser", currentUser);
                 alert(msg);
                 return;
             }
-            if (parseInt(localStorage.getItem(currentUser)) >= 3) {
-                window.location.href = "/html/qrcode.html";
-            }
-            else {
-                var msg = '活动提示：完成分享任务，即可进群（请分享到一个微信群）\n当前群人数' + peoples + '人';
-                alert(msg);
-            }
+
+
+			var shares, sharerequestnumber, qrcode;
+			var url = window.location.href;
+			url = url.indexOf("?") > 0 ? url.substring(0, url.indexOf("?")) : url;
+			alert(url);
+			getData('get', 'http://www.bbpdt.cn/Services/Shareloginfo.ashx', {"UserID": currentUser, "ShareUrl": url },
+			function (data) {
+					shares = data.d.sharenums;
+					sharerequestnumber = data.d.sharerequest;
+					qrcode = data.d.shareimages;
+				}
+			)
+
+		   if (shares >= sharerequestnumber) {
+				window.location.href ="/html/qrcode.html?images=" + qrcode + "";
+			}
+			else {
+				 var msg = '活动提示：完成分享任务，即可进群（请分享到一个微信群）\n当前群人数' + peoples + '人';
+                 alert(msg);
+			}
+
            
         } 
     </script>
 </html>
+
+
 

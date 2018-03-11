@@ -6,6 +6,8 @@
     <edmx:Diagrams>
       <Diagram DiagramId="b1a60861e2144a6aa7df214334f39e79" Name="Diagram1">
         <EntityTypeShape EntityType="WechatModel.ShareInfo" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WechatModel.Pageinexinfo" Width="1.5" PointX="7.5" PointY="1.625" />
+        <EntityTypeShape EntityType="WechatModel.ShareLog" Width="1.5" PointX="3.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

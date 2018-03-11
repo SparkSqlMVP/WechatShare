@@ -26,5 +26,7 @@ namespace CSharpSDK.Models
         }
     
         public virtual DbSet<ShareInfo> ShareInfo { get; set; }
+        public virtual DbSet<Pageinexinfo> Pageinexinfo { get; set; }
+        public virtual DbSet<ShareLog> ShareLogs { get; set; }
     }
 }

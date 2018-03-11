@@ -14,5 +14,44 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Pageinexinfo">
+      <EntityTypeMapping TypeName="WechatModel.Pageinexinfo">
+        <MappingFragment StoreEntitySet="Pageinexinfo">
+          <ScalarProperty Name="friendimages" ColumnName="friendimages" />
+          <ScalarProperty Name="InputDate" ColumnName="InputDate" />
+          <ScalarProperty Name="shareinfoID" ColumnName="shareinfoID" />
+          <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+          <ScalarProperty Name="AdURL" ColumnName="AdURL" />
+          <ScalarProperty Name="AdImages" ColumnName="AdImages" />
+          <ScalarProperty Name="SharesRequirements" ColumnName="SharesRequirements" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="FriendsImages" ColumnName="FriendsImages" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ShareLogs">
+      <EntityTypeMapping TypeName="WechatModel.ShareLog">
+        <MappingFragment StoreEntitySet="ShareLog">
+          <ScalarProperty Name="InputDate" ColumnName="InputDate" />
+          <ScalarProperty Name="Isp" ColumnName="Isp" />
+          <ScalarProperty Name="County" ColumnName="County" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Area" ColumnName="Area" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="BrowseVersion" ColumnName="BrowseVersion" />
+          <ScalarProperty Name="BrowseName" ColumnName="BrowseName" />
+          <ScalarProperty Name="OsName" ColumnName="OsName" />
+          <ScalarProperty Name="IsMobile" ColumnName="IsMobile" />
+          <ScalarProperty Name="ClientIp" ColumnName="ClientIp" />
+          <ScalarProperty Name="BrowseType" ColumnName="BrowseType" />
+          <ScalarProperty Name="shareinfoID" ColumnName="shareinfoID" />
+          <ScalarProperty Name="shareUrl" ColumnName="shareUrl" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

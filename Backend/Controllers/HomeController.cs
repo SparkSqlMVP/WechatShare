@@ -78,57 +78,113 @@ namespace DatatableCRUD.Controllers
                 {
               
                     string FriendsImages = "";
-                    if (Request.Files[0] != null) {
-                          FriendsImages = System.Guid.NewGuid().ToString() + System.IO.Path.GetExtension(Request.Files[0].FileName);
-                          savefile(Request.Files[0], FriendsImages);
-                          pageindex.FriendsImages = "images/upload/"+FriendsImages;
-                    } else {
-                        FriendsImages = "";
-                    }
-
-                    string adimages = "";
-                    if (Request.Files[1] != null)
-                    {
-                        adimages = System.Guid.NewGuid().ToString() + System.IO.Path.GetExtension(Request.Files[1].FileName);
-                        savefile(Request.Files[1], adimages);
-                        pageindex.AdImages = "images/upload/" + adimages;
-                    } else {
-                        adimages = "";
-                    }
+                    string adimages = "", friendimages = "";
 
                     pageindex.AuthorID = 100;
                     pageindex.InputDate = System.DateTime.Now;
 
 
                     // pageindex.Id :  Pageindex.shareinfoID 是否存在
-
                     var PageinfoDB = dc.Pageinexinfoes.Where(a => a.shareinfoID == pageindex.Id).FirstOrDefault();
                     if (PageinfoDB != null) {
-
+                        //edit 
                         var v = dc.Pageinexinfoes.Where(a => a.Id == PageinfoDB.Id).FirstOrDefault();
                         if (v != null)
                         {
-                            v.FriendsImages = pageindex.FriendsImages;
+                            if (Request.Files[0].FileName != "")
+                            {
+                                FriendsImages = System.Guid.NewGuid().ToString() + System.IO.Path.GetExtension(Request.Files[0].FileName);
+                                savefile(Request.Files[0], FriendsImages);
+                                v.FriendsImages = "images/upload/" + FriendsImages;
+                            }
+                            else
+                            {
+                                v.FriendsImages = PageinfoDB.FriendsImages;
+                            }
+
+
                             v.Description = pageindex.Description;
                             v.SharesRequirements = pageindex.SharesRequirements;
-                            v.AdImages = pageindex.AdImages;
+
+
+                            if (Request.Files[1].FileName != "")
+                            {
+                                adimages = System.Guid.NewGuid().ToString() + System.IO.Path.GetExtension(Request.Files[1].FileName);
+                                savefile(Request.Files[1], adimages);
+                                v.AdImages = "images/upload/" + adimages;
+                            }
+                            else
+                            {
+                                v.AdImages = PageinfoDB.AdImages;
+                            }
+
+
+                            if (Request.Files[2].FileName != "")
+                            {
+                                friendimages = System.Guid.NewGuid().ToString() + System.IO.Path.GetExtension(Request.Files[2].FileName);
+                                savefile(Request.Files[2], friendimages);
+                                v.friendimages = "images/upload/" + friendimages;
+                            }
+                            else
+                            {
+                                v.friendimages = PageinfoDB.friendimages;
+                            }
+
                             v.AdURL = pageindex.AdURL; // test
+
+
+                            string generateFile = System.IO.File.ReadAllText(System.AppDomain.CurrentDomain.BaseDirectory + "/template/" + "index.tl", Encoding.GetEncoding("gb2312"));
+                            generateFile = generateFile.Replace("{0}", string.Format("<img src='http://www.bbpdt.cn/{0}'  style='height:620px' />", v.FriendsImages));
+                            generateFile = generateFile.Replace("{1}", pageindex.Description);
+                            generateFile = generateFile.Replace("{2}", pageindex.AdURL);
+                            generateFile = generateFile.Replace("{3}", string.Format("<img src='http://www.bbpdt.cn/{0}'   style='width:100%;'  />", v.AdImages));
+                            Log(generateFile, "index" + pageindex.Id.ToString() + ".html");
+
                         }
+
+                         
+
+                       
                     }
                     else {
+
+                        //Save
+
+                        if (Request.Files[0].FileName != "")
+                        {
+                            FriendsImages = System.Guid.NewGuid().ToString() + System.IO.Path.GetExtension(Request.Files[0].FileName);
+                            savefile(Request.Files[0], FriendsImages);
+                            pageindex.FriendsImages= "images/upload/" + FriendsImages;
+                        }
+                        if (Request.Files[1].FileName != "")
+                        {
+                            adimages = System.Guid.NewGuid().ToString() + System.IO.Path.GetExtension(Request.Files[1].FileName);
+                            savefile(Request.Files[1], adimages);
+                            pageindex.AdImages = "images/upload/" + adimages;
+                        }
+                        if (Request.Files[2].FileName != "")
+                        {
+                            friendimages = System.Guid.NewGuid().ToString() + System.IO.Path.GetExtension(Request.Files[2].FileName);
+                            savefile(Request.Files[2], friendimages);
+                            pageindex.friendimages = "images/upload/" + friendimages;
+                        }
                         pageindex.shareinfoID = pageindex.Id;
-                        //Edit 
-                      
+
+                        // Save
                         dc.Pageinexinfoes.Add(pageindex);
+
+                        string generateFile = System.IO.File.ReadAllText(System.AppDomain.CurrentDomain.BaseDirectory + "/template/" + "index.tl", Encoding.GetEncoding("gb2312"));
+                        generateFile = generateFile.Replace("{0}", string.Format("<img src='http://www.bbpdt.cn/{0}'  style='height:620px' />", pageindex.FriendsImages));
+                        generateFile = generateFile.Replace("{1}", pageindex.Description);
+                        generateFile = generateFile.Replace("{2}", pageindex.AdURL);
+                        generateFile = generateFile.Replace("{3}", string.Format("<img src='http://www.bbpdt.cn/{0}'   style='width:100%;'  />", pageindex.AdImages));
+                       
+                        Log(generateFile, "index" + pageindex.Id.ToString() + ".html");
+                       
                     }
 
-                    string generateFile = System.IO.File.ReadAllText(System.AppDomain.CurrentDomain.BaseDirectory + "/template/" + "index.tl", Encoding.GetEncoding("gb2312"));
-                    generateFile = generateFile.Replace("{0}", string.Format("<img src='http://www.bbpdt.cn/images/upload/{0}'  style='height:620px' />", FriendsImages));
-                    generateFile = generateFile.Replace("{1}", pageindex.Description);
-                    generateFile = generateFile.Replace("{2}", pageindex.AdURL);
-                    generateFile = generateFile.Replace("{3}", string.Format("<img src='http://www.bbpdt.cn/images/upload/{0}'   style='width:100%;'  />", adimages));
-                    Log(generateFile, "index" + pageindex.Id.ToString() + ".html");
 
+                  
                     dc.SaveChanges();
                     status = true;
                 }
@@ -140,23 +196,12 @@ namespace DatatableCRUD.Controllers
         [HttpPost]
         public ActionResult Save(ShareInfo share, HttpPostedFileBase file)
         {
-            
+            string filename = "";
             bool status = false;
             if (ModelState.IsValid)
             {
                 using (WechatEntities dc = new WechatEntities())
                 {
-                    string filename = "";
-                    if (file != null)
-                    {
-                        filename = System.Guid.NewGuid().ToString() + System.IO.Path.GetExtension(file.FileName);
-                        share.Image = "images/upload/" + filename;
-                    }
-                    else
-                    {
-                        share.Image = "";
-                    }
-                    
                    
                     if (share.Id > 0)
                     {
@@ -164,9 +209,23 @@ namespace DatatableCRUD.Controllers
                         var v = dc.ShareInfoes.Where(a => a.Id == share.Id).FirstOrDefault();
                         if (v != null)
                         {
+                           
+                            if (file != null)
+                            {
+                                filename = System.Guid.NewGuid().ToString() + System.IO.Path.GetExtension(file.FileName);
+                                v.Image = "images/upload/" + filename;
+                                savefile(file, filename);
+                            }
+                            else
+                            {
+                                if (share.Image != null)
+                                {
+                                    v.Image = share.Image;
+                                }
+                            }
+
                             v.Title = share.Title;
                             v.ShareURL = share.ShareURL;
-                            v.Image = share.Image;
                             v.Description = share.Description;
                             v.AuthorID = 100; // test
                         }
@@ -177,10 +236,6 @@ namespace DatatableCRUD.Controllers
                         dc.ShareInfoes.Add(share);
                     }
 
-                    // savefile
-                    if (file != null) {
-                        savefile(file, filename);
-                    }
                     dc.SaveChanges();
                     status = true;
                 }

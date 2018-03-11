@@ -8,24 +8,60 @@
     if (Model != null && Model.Id > 0)
     {
         @Html.HiddenFor(a => a.Id)
+
+
+
+
+        <div class="form-group">
+            <label>标题</label>
+            @Html.TextBoxFor(a => a.Title, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.Title)
+        </div>
+        <div class="form-group">
+            <label>描述</label>
+            @Html.TextAreaFor(a => a.Description, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.Description)
+        </div>
+        <div class="form-group">
+            <label>缩微图</label>
+            <div>
+                <input type="file" name="file" id="file" class="makethispretty" value=@Model.Image />
+                <p><image src=@Model.Image height=160 width=300 /></p>
+                @Html.ValidationMessageFor(a => a.Image)
+            </div>
+        </div>
+
+
+    }
+    else
+    {
+
+
+
+        <div class="form-group">
+            <label>标题</label>
+            @Html.TextBoxFor(a => a.Title, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.Title)
+        </div>
+        <div class="form-group">
+            <label>描述</label>
+            @Html.TextAreaFor(a => a.Description, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.Description)
+        </div>
+        <div class="form-group">
+            <label>缩微图</label>
+            <div>
+                <input type="file" name="file" id="file" class="makethispretty" />
+                @Html.ValidationMessageFor(a => a.Image)
+            </div>
+        </div>
+
+
     }
 
-    <div class="form-group">
-        <label>标题</label>
-        @Html.TextBoxFor(a => a.Title, new { @class = "form-control" })
-        @Html.ValidationMessageFor(a => a.Title)
-    </div>
-    <div class="form-group">
-        <label>描述</label>
-        @Html.TextAreaFor(a => a.Description, new { @class = "form-control" })
-        @Html.ValidationMessageFor(a => a.Description)
-    </div>
-    <div class="form-group">
-        <label>缩微图</label>
-        <div>
-            <input type="file" name="file" id="file" class="makethispretty" />
-        </div>
-    </div>
+
+
+
 
     <div>
         <input type="submit" class="btn btn-info" value="保存" />
